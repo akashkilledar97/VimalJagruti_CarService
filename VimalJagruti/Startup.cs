@@ -28,13 +28,6 @@ namespace VimalJagruti
             Configuration = configuration;
             cenv = appEnv.EnvironmentName;
 
-            /*var builder = new ConfigurationBuilder()
-                    .SetBasePath(appEnv.ContentRootPath)
-                    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                    .AddJsonFile($"appsettings.{appEnv.EnvironmentName}.json", optional: true)
-                    .AddEnvironmentVariables();
-
-            Configuration = builder.Build();*/
         }
 
         public IConfiguration Configuration { get; }
@@ -54,9 +47,7 @@ namespace VimalJagruti
                 config.Filters.Add(new ModelStateValidatorAttribute());
             });
 
-            var dummy = Configuration.GetSection("AppSettings:Secret").Value;
             var appSettingsSection = Configuration.GetSection("AppSettings:Secret");
-            services.Configure<AppSettings>(appSettingsSection);
 
             services.Configure<AppSettings>(d => d.Sercret = appSettingsSection.Value);
             services.AddSwaggerGen(c =>
@@ -92,7 +83,6 @@ namespace VimalJagruti
             });
 
             // configure jwt authentication
-            //var appSettings = appSettingsSection.Get<AppSettings>();
             var key = Encoding.ASCII.GetBytes(appSettingsSection.Value);
 
 
