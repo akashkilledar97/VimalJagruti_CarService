@@ -1,0 +1,163 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using System.Text;
+using System.Threading.Tasks;
+using VimalJagruti.Domain.ViewModel.Common;
+using VimalJagruti.Helper;
+using VimalJagruti.Repo;
+using VimalJagruti.Repo.IRepository;
+using VimalJagruti.Repo.Repository;
+using VimalJagruti.Services.IServices;
+using VimalJagruti.Services.Services;
+
+namespace VimalJagruti
+{
+    public class Startup
+    {
+        private readonly string cenv;
+        public Startup(IConfiguration configuration, Microsoft.AspNetCore.Hosting.IHostingEnvironment appEnv)
+        {
+            Configuration = configuration;
+            cenv = appEnv.EnvironmentName;
+
+            /*var builder = new ConfigurationBuilder()
+                    .SetBasePath(appEnv.ContentRootPath)
+                    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                    .AddJsonFile($"appsettings.{appEnv.EnvironmentName}.json", optional: true)
+                    .AddEnvironmentVariables();
+
+            Configuration = builder.Build();*/
+        }
+
+        public IConfiguration Configuration { get; }
+
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddCors(o => o.AddPolicy("CorsPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
+
+            services.AddControllers(config =>
+            {
+                config.Filters.Add(new ModelStateValidatorAttribute());
+            });
+
+            var dummy = Configuration.GetSection("AppSettings:Secret").Value;
+            var appSettingsSection = Configuration.GetSection("AppSettings:Secret");
+            services.Configure<AppSettings>(appSettingsSection);
+
+            services.Configure<AppSettings>(d => d.Sercret = appSettingsSection.Value);
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "VimalJagruti", Version = "v1" });
+
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Please insert JWT with Bearer into field",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+                       {
+                         new OpenApiSecurityScheme
+                         {
+                           Reference = new OpenApiReference
+                           {
+                             Type = ReferenceType.SecurityScheme,
+                             Id = "Bearer"
+                           }
+                          },
+                          new string[] { }
+                        }
+                      });
+
+                // Set the comments path for the Swagger JSON and UI.
+                //var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                //var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                //c.IncludeXmlComments(xmlPath);
+            });
+
+            // configure jwt authentication
+            //var appSettings = appSettingsSection.Get<AppSettings>();
+            var key = Encoding.ASCII.GetBytes(appSettingsSection.Value);
+
+
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(a =>
+                {
+                    a.RequireHttpsMetadata = false;
+                    a.SaveToken = true;
+                    a.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                    a.Events = new JwtBearerEvents
+                    {
+                        OnMessageReceived = contxt =>
+                        {
+                            var accesstoken = contxt.Request.Query["access_token"];
+                            //If request is for our hub
+                            var path = contxt.HttpContext.Request.Path;
+                            if(!string.IsNullOrEmpty(accesstoken) && (path.StartsWithSegments("/hubs/chat")))
+                            {
+                                // Read the token out of the query string
+                                contxt.Token = accesstoken;
+                            }
+                            return Task.CompletedTask;
+                        }
+                    };
+                });
+
+
+            ///Registering services
+            services.AddDbContext<Context>(options => 
+                options.UseSqlServer(Configuration.GetConnectionString("VmJagrutiCS")));
+            
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IStoredProcedureRepo, StoredProcedureRepo>();
+            services.AddScoped<IStoredProcedureRepo, StoredProcedureRepo>();
+            services.AddTransient<IUserServices, UserServices>();
+        }
+
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "VimalJagruti v1"));
+            }
+
+            app.UseRouting();
+
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
+        }
+    }
+}

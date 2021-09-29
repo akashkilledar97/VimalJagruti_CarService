@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\VimalJagruti.Utils\VimalJagruti.Utils.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DB_Scripts\" />
+  </ItemGroup>
+
+</Project>
