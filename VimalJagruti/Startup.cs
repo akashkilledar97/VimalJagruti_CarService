@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using VimalJagruti.Domain.ViewModel.Common;
@@ -17,6 +18,7 @@ using VimalJagruti.Repo.IRepository;
 using VimalJagruti.Repo.Repository;
 using VimalJagruti.Services.IServices;
 using VimalJagruti.Services.Services;
+using VimalJagruti.Utils;
 
 namespace VimalJagruti
 {
@@ -128,6 +130,15 @@ namespace VimalJagruti
             services.AddScoped<IStoredProcedureRepo, StoredProcedureRepo>();
             services.AddScoped<IStoredProcedureRepo, StoredProcedureRepo>();
             services.AddTransient<IUserServices, UserServices>();
+            services.AddTransient<IVehicleServices, VehicleServices>();
+
+
+            services.AddAuthorization(x =>
+            {
+                x.AddPolicy(Policies.Admin.ToString(), policyUser => policyUser.RequireClaim(ClaimTypes.Role, Roles.Admin.ToString()));
+                x.AddPolicy(Policies.OwnerAndHigher.ToString(), policyUser => policyUser.RequireClaim(ClaimTypes.Role, Roles.Owner.ToString(), Roles.Admin.ToString()));
+                x.AddPolicy(Policies.StaffAndHigher.ToString(), policyUser => policyUser.RequireClaim(ClaimTypes.Role, Roles.Staff.ToString(), Roles.Admin.ToString() , Roles.Owner.ToString()));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

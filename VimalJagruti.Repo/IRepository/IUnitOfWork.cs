@@ -9,6 +9,7 @@ namespace VimalJagruti.Repo.IRepository
     public interface IUnitOfWork : IDisposable
     {
         IUserRepo userRepo { get; }
+        IVehicleRepo vehicleRepo { get; }
         void SaveChanges();
         Task SaveChangesAsync();
     }

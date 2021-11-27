@@ -25,4 +25,11 @@ namespace VimalJagruti.Utils
         New = 3
     }
 
+    public enum Policies
+    {
+        Admin = 1,
+        OwnerAndHigher = 2,
+        StaffAndHigher = 3
+    }
+
 }

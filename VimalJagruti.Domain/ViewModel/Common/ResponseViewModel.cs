@@ -1,10 +1,12 @@
 ﻿
 
+using System.Net;
+
 namespace VimalJagruti.Domain.ViewModel.Common
 {
     public class ResponseViewModel<T>
     {
-        public int StatusCode { get; set; } = 200;
+        public HttpStatusCode StatusCode { get; set; } = HttpStatusCode.OK;
         public string Message { get; set; }
         public T Data { get; set; }
     }
