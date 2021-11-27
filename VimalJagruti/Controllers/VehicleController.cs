@@ -25,10 +25,11 @@ namespace VimalJagruti.Controllers
         /// </summary>
         /// <param name="vehiclenumber"></param>
         /// <returns></returns>
-        //[Authorize(Policy = nameof(Policies.StaffAndHigher))]
+        [Authorize(Policy = nameof(Policies.StaffAndHigher))]
         [HttpGet("get-vehicle-details")]
         public async Task<IActionResult> GetVehicleDetails(string vehiclenumber)
         {
+            var id = currentUsers.Id;
             var res = await Service.GetVehicleDetails(vehiclenumber);
 
             return Ok(new ResponseViewModel<Domain.ViewModel.VehicleDetails.VehicleDetails>
