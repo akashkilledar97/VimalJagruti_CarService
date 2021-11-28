@@ -19,9 +19,10 @@ namespace VimalJagruti.Repo.Repository
 
 
         private IUserRepo _userRepo;
+        private IVehicleRepo _vehicleRepo;
 
         public IUserRepo userRepo => _userRepo ?? (_userRepo = new UserRepo(_context,_spRepo));
-
+        public IVehicleRepo vehicleRepo => _vehicleRepo ?? (_vehicleRepo = new VehicleRepo(_context, _spRepo));
 
         public void SaveChanges()
         {

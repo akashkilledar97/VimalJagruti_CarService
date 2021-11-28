@@ -74,6 +74,7 @@ namespace VimalJagruti.Services.Services
                 FullName = string.IsNullOrEmpty(user.FullName) ? string.Empty : user.FullName,
                 Username = user.Username,
                 RefreshToken = user.RefreshToken,
+                Roles = user.Roles
             };
 
             return new ServiceResponseModel<LoginResponse> 

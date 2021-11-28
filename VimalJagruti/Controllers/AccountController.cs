@@ -126,7 +126,7 @@ namespace VimalJagruti.Controllers
             var key = Encoding.ASCII.GetBytes(_appSettings.Sercret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Issuer = "VimalJagruti",
+                //Issuer = "VimalJagruti",
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.Name, user.FullName),

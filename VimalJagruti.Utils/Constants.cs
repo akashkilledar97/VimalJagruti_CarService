@@ -15,5 +15,7 @@ namespace VimalJagruti.Utils
         public const string LoginSuccess = "Login successfull";
         public const string InvalidEmail = "Invalid email";
         public const string GeneralError = "Something went wrong";
+        public const string VehicleNotFound = "Vehicle data not found. Create a new job card";
+        public const string VehicleFound = "We found vehicle data";
     }
 }
