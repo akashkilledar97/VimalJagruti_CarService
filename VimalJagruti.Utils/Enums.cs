@@ -31,5 +31,11 @@ namespace VimalJagruti.Utils
         OwnerAndHigher = 2,
         StaffAndHigher = 3
     }
+    public enum CheckupStatus
+    {
+        Good = 1,
+        Y = 2,
+        Replace = 3
+    }
 
 }

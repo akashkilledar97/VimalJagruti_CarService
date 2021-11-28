@@ -72,6 +72,12 @@ namespace VimalJagruti.Repo
                     a => JsonConvert.DeserializeObject<List<ObservationAndCustomerComplaints>>(a, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore })
                 );
 
+            modelBuilder.Entity<JobCard>()
+                .Property(p => p.RearsideCheckup).HasConversion(
+                    a => JsonConvert.SerializeObject(a, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }),
+                    a => JsonConvert.DeserializeObject<RearsideCheckup>(a, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore })
+                );
+
 
             #endregion
 

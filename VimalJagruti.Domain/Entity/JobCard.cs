@@ -65,6 +65,11 @@ namespace VimalJagruti.Domain.Entity
         /// </summary>
         public int Discount {get; set;}
 
+        /// <summary>
+        /// Rearside checkup from jobcard
+        /// </summary>
+        public RearsideCheckup RearsideCheckup { get; set; }
+
         [JsonIgnore]
         public User JobCardCreatedUser { get; set; }
 
@@ -83,21 +88,21 @@ namespace VimalJagruti.Domain.Entity
     /// </summary>
     public class UnderChassisCheck
     {
-        public string TyreForDamage { get; set; }
+        public CheckupStatus TyreForDamage { get; set; }
 
-        public string FuelAndBrakeFORLeaks { get; set; }
+        public CheckupStatus FuelAndBrakeFORLeaks { get; set; }
 
-        public string AnyOtherLeaks { get; set; }
+        public CheckupStatus AnyOtherLeaks { get; set; }
 
-        public string ExhaustSystemAnyLeaks { get; set; }
+        public CheckupStatus ExhaustSystemAnyLeaks { get; set; }
 
-        public string SteeringOrSuspensionOilLeakage { get; set; }
+        public CheckupStatus SteeringOrSuspensionOilLeakage { get; set; }
 
-        public string FrontStrutORRearShocks { get; set; }
+        public CheckupStatus FrontStrutORRearShocks { get; set; }
 
-        public string DriveShaftBootCondition { get; set; }
+        public CheckupStatus DriveShaftBootCondition { get; set; }
 
-        public string AnyOtherUnderBodyDamage { get; set; }
+        public CheckupStatus AnyOtherUnderBodyDamage { get; set; }
 
 
     }
@@ -107,11 +112,11 @@ namespace VimalJagruti.Domain.Entity
     /// </summary>
     public class VehicleDriverCheck
     {
-        public string ClutchPedalFreePlay { get; set; }
+        public CheckupStatus ClutchPedalFreePlay { get; set; }
 
-        public string BrakePedalForSpongy { get; set; }
+        public CheckupStatus BrakePedalForSpongy { get; set; }
 
-        public string HandBrakeNotches { get; set; }
+        public CheckupStatus HandBrakeNotches { get; set; }
     }
 
     /// <summary>
@@ -123,5 +128,18 @@ namespace VimalJagruti.Domain.Entity
 
         public bool Approved { get; set; }
 
+    }
+
+    /// <summary>
+    /// Rearside checkup data in jobcard
+    /// </summary>
+    public class RearsideCheckup
+    {
+        public int SpareWheel { get; set; }
+        public int JackWheel { get; set; }
+        public int BootMat { get; set; }
+        public int FirstAidKit { get; set; }
+        public int WarningTraingle { get; set; }
+        public int ToolKit { get; set; }
     }
 }
