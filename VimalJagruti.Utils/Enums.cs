@@ -34,7 +34,7 @@ namespace VimalJagruti.Utils
     public enum CheckupStatus
     {
         Good = 1,
-        Y = 2,
+        YetToCheck = 2,
         Replace = 3
     }
 

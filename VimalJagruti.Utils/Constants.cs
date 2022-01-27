@@ -9,7 +9,7 @@ namespace VimalJagruti.Utils
     public class Constants
     {
         public const string LoginFailed = "Email or password is incorrect.";
-        public const string SuccessRegister = "Account created successfully. Check email for activation link.";
+        public const string SuccessRegister = "Account created successfully. Login with your credentials";
         public const string ModelValidationFailed = "One or more form data failed validation.";
         public const string EmailRegistered = "Email already registered.";
         public const string LoginSuccess = "Login successfull";
@@ -17,5 +17,7 @@ namespace VimalJagruti.Utils
         public const string GeneralError = "Something went wrong";
         public const string VehicleNotFound = "Vehicle data not found. Create a new job card";
         public const string VehicleFound = "We found vehicle data";
+        public const string NoRegistrationNumber = "Please enter valid Registration number or mobile number";
+        public const string VehicleRegistered = "Vehicle is registered.";
     }
 }

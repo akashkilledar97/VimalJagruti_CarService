@@ -29,8 +29,6 @@ namespace VimalJagruti.Domain.Entity
         
         public FuelType FuelType { get; set; }
         
-        [MaxLength(20)]
-        public string RunningKM { get; set; }
         
         public string VehicleQR { get; set; }
 

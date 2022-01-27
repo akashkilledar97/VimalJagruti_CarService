@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -69,6 +70,19 @@ namespace VimalJagruti.Domain.Entity
         /// Rearside checkup from jobcard
         /// </summary>
         public RearsideCheckup RearsideCheckup { get; set; }
+
+        /// <summary>
+        /// Fuel level when doing job card
+        /// </summary>
+        public int FuelLevel { get; set; }
+
+        /// <summary>
+        /// Mileage when doing job card
+        /// </summary>
+        public int Mileage { get; set; }
+
+        [MaxLength(20)]
+        public string RunningKM { get; set; }
 
         [JsonIgnore]
         public User JobCardCreatedUser { get; set; }

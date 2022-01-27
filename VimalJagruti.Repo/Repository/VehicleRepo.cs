@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VimalJagruti.Domain.Entity;
+using VimalJagruti.Domain.ViewModel.Common;
 using VimalJagruti.Repo.IRepository;
 
 namespace VimalJagruti.Repo.Repository
@@ -37,6 +38,11 @@ namespace VimalJagruti.Repo.Repository
                 return null;
 
             return details;
+        }
+
+        public Task<ResponseViewModel<bool>> RegisterVehicle(Domain.ViewModel.VehicleDetails.NewVehicleDetails newVehicleDetails)
+        {
+            throw new NotImplementedException();
         }
     }
 }

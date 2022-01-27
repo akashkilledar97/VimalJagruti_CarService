@@ -26,4 +26,12 @@ namespace VimalJagruti.Domain.ViewModel.VehicleDetails
 
         public string VehicleQR { get; set; }
     }
+    public class NewVehicleDetails
+    {
+        public string OwnerFirstName { get; set; }
+        public string OwnerLastName { get; set; }
+        public string OwnerNumber { get; set; }
+
+        public VehicleDetails VehicleDetails { get; set; }
+    }
 }
