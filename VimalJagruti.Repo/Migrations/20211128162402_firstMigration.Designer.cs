@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VimalJagruti.Repo;
 
 namespace VimalJagruti.Repo.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20211128162402_firstMigration")]
+    partial class firstMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -79,13 +81,7 @@ namespace VimalJagruti.Repo.Migrations
                     b.Property<double>("EstimatedAmount")
                         .HasColumnType("float");
 
-                    b.Property<int>("FuelLevel")
-                        .HasColumnType("int");
-
                     b.Property<int>("JobCardStatus")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Mileage")
                         .HasColumnType("int");
 
                     b.Property<string>("NewEstimatedParts")
@@ -102,10 +98,6 @@ namespace VimalJagruti.Repo.Migrations
 
                     b.Property<string>("RearsideCheckup")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RunningKM")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("UnderChassisCheck")
                         .HasColumnType("nvarchar(max)");
@@ -290,6 +282,10 @@ namespace VimalJagruti.Repo.Migrations
 
                     b.Property<int>("FuelType")
                         .HasColumnType("int");
+
+                    b.Property<string>("RunningKM")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("VehicleBrand")
                         .HasColumnType("nvarchar(max)");

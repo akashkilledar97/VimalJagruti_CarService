@@ -128,9 +128,10 @@ namespace VimalJagruti
             
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IStoredProcedureRepo, StoredProcedureRepo>();
-            services.AddScoped<IStoredProcedureRepo, StoredProcedureRepo>();
+            //services.AddScoped<IStoredProcedureRepo, StoredProcedureRepo>();
             services.AddTransient<IUserServices, UserServices>();
             services.AddTransient<IVehicleServices, VehicleServices>();
+            services.AddTransient<IJobCardService, JobCardService>();
 
 
             services.AddAuthorization(x =>

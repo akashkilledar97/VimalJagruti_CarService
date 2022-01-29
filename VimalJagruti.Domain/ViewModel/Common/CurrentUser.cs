@@ -9,7 +9,7 @@ namespace VimalJagruti.Domain.ViewModel.Common
 {
     public class CurrentUser
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
         public Roles Roles { get; set; }
         public string Name { get; set; }
     }

@@ -30,7 +30,7 @@ namespace VimalJagruti.Controllers
             var claimValue = identityClaims.Claims.SingleOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
             var parseResult = Enum.TryParse<Roles>(claimValue, true, out var role);
 
-            currentUsers.Id = Convert.ToInt64(identityClaims.Claims.SingleOrDefault(c => c.Type == "UserId")?.Value);
+            currentUsers.Id = Convert.ToInt32(identityClaims.Claims.SingleOrDefault(c => c.Type == "UserId")?.Value);
             currentUsers.Name = identityClaims.Claims.SingleOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
    
         }

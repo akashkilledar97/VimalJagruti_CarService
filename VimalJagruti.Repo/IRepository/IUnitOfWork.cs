@@ -10,6 +10,8 @@ namespace VimalJagruti.Repo.IRepository
     {
         IUserRepo userRepo { get; }
         IVehicleRepo vehicleRepo { get; }
+        IRepository<Domain.Entity.VehicleOwnerDetails> vehicleOwnerDetailsRepository { get; }
+        IJobCardRepo jobCardRepo { get;  }
         void SaveChanges();
         Task SaveChangesAsync();
     }

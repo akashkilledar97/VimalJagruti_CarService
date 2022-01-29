@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using VimalJagruti.Domain.ViewModel.Common;
+using VimalJagruti.Domain.ViewModel.VehicleDetails;
 using VimalJagruti.Services.IServices;
 using VimalJagruti.Utils;
 
@@ -29,7 +30,6 @@ namespace VimalJagruti.Controllers
         [HttpGet("get-vehicle-details")]
         public async Task<IActionResult> GetVehicleDetails(string vehiclenumber)
         {
-            var id = currentUsers.Id;
             var res = await Service.GetVehicleDetails(vehiclenumber);
 
             return Ok(new ResponseViewModel<Domain.ViewModel.VehicleDetails.VehicleDetails>
@@ -37,6 +37,25 @@ namespace VimalJagruti.Controllers
                 StatusCode = res == null || string.IsNullOrEmpty(res.VehicleNumber) ? HttpStatusCode.NotFound : HttpStatusCode.OK,
                 Data = res,
                 Message = res == null || string.IsNullOrEmpty(res.VehicleNumber) ? Constants.VehicleNotFound : Constants.VehicleFound
+            });
+        }
+
+        /// <summary>
+        /// To register new vehicle
+        /// </summary>
+        /// <param name="vehicleDetails"></param>
+        /// <returns></returns>
+        [Authorize(Policy = nameof(Policies.StaffAndHigher))]
+        [HttpPost("new-vehicle-register")]
+        public async Task<IActionResult> NewVehicleRegister(NewVehicleDetails vehicleDetails)
+        {
+            var res = await Service.NewVehicleRegister(vehicleDetails);
+
+            return Ok(new ResponseViewModel<bool>
+            {
+                StatusCode = res.StatusCode,
+                Data = res.Data,
+                Message = res.Message
             });
         }
     }
