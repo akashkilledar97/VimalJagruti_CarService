@@ -40,7 +40,7 @@ namespace VimalJagruti.Domain.Entity
         /// <summary>
         /// List of all observations and complaints
         /// </summary>
-        public List<ObservationAndCustomerComplaints> ObservationAndCustomerComplaints { get; set; }
+        public List<string> ObservationAndCustomerComplaints { get; set; }
 
         public double EstimatedAmount { get; set; }
 

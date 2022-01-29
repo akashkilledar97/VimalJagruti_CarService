@@ -10,6 +10,7 @@ namespace VimalJagruti.Domain.ViewModel.VehicleDetails
 {
     public class VehicleDetails
     {
+        public int Id { get; set; }
         public string VehicleNumber { get; set; }
 
         public string VehicleBrand { get; set; }

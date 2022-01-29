@@ -45,7 +45,7 @@ namespace VimalJagruti.Controllers
         /// </summary>
         /// <param name="vehicleDetails"></param>
         /// <returns></returns>
-        //[Authorize(Policy = nameof(Policies.StaffAndHigher))]
+        [Authorize(Policy = nameof(Policies.StaffAndHigher))]
         [HttpPost("new-vehicle-register")]
         public async Task<IActionResult> NewVehicleRegister(NewVehicleDetails vehicleDetails)
         {

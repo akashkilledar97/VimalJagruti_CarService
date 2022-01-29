@@ -69,7 +69,7 @@ namespace VimalJagruti.Repo
             modelBuilder.Entity<JobCard>()
                 .Property(p => p.ObservationAndCustomerComplaints).HasConversion(
                     a => JsonConvert.SerializeObject(a, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }),
-                    a => JsonConvert.DeserializeObject<List<ObservationAndCustomerComplaints>>(a, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore })
+                    a => JsonConvert.DeserializeObject<List<string>>(a, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore })
                 );
 
             modelBuilder.Entity<JobCard>()

@@ -22,7 +22,7 @@ namespace VimalJagruti.Services.Services
             if (string.IsNullOrEmpty(VehicleNumber))
                 return new VehicleDetails();
 
-            var details = await _unitOfWork.vehicleRepo.GetVehicleDetails(VehicleNumber);
+            var details = await _unitOfWork.vehicleRepo.GetVehicleDetails(VehicleNumber.ToUpper());
 
             if (details == null)
                 return null;
@@ -39,6 +39,16 @@ namespace VimalJagruti.Services.Services
                     Data = false,
                     Message = VimalJagruti.Utils.Constants.NoRegistrationNumber,
                     StatusCode = System.Net.HttpStatusCode.NotAcceptable
+                };
+
+            var alreadyExist = await GetVehicleDetails(newVehicleDetails.VehicleDetails.VehicleNumber);
+
+            if (alreadyExist != null)
+                return new ResponseViewModel<bool>
+                {
+                    Data = false,
+                    Message = VimalJagruti.Utils.Constants.VehicleAlreadyRegistered,
+                    StatusCode = System.Net.HttpStatusCode.NoContent
                 };
 
             Domain.Entity.VehicleOwnerDetails ownerDetails = new Domain.Entity.VehicleOwnerDetails
@@ -66,7 +76,7 @@ namespace VimalJagruti.Services.Services
                 VehicleName = newVehicleDetails.VehicleDetails.VehicleName,
                 VehicleBrand = newVehicleDetails.VehicleDetails.VehicleBrand,
                 EngineNumber = string.IsNullOrEmpty(newVehicleDetails.VehicleDetails.EngineNumber) || newVehicleDetails.VehicleDetails.EngineNumber == "0" ? null : newVehicleDetails.VehicleDetails.EngineNumber,
-                VehicleNumber = newVehicleDetails.VehicleDetails.VehicleNumber,
+                VehicleNumber = newVehicleDetails.VehicleDetails.VehicleNumber.ToUpper(),
                 VehicleOwnerId_FK = ownerDetails.Id,
             };
 
