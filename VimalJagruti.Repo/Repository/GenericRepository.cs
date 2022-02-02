@@ -98,7 +98,7 @@ namespace VimalJagruti.Repo.Repository
             }
         }
 
-        public virtual async Task<T> GetById(long id)
+        public virtual async Task<T> GetById(int id)
         {
             return await DbSet.FindAsync(id);
         }
@@ -181,7 +181,7 @@ namespace VimalJagruti.Repo.Repository
             return true;
         }
 
-        public virtual async Task<bool> Delete(long id)
+        public virtual async Task<bool> Delete(int id)
         {
             var entity = await GetById(id);
 

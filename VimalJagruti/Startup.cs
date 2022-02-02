@@ -132,6 +132,7 @@ namespace VimalJagruti
             services.AddTransient<IUserServices, UserServices>();
             services.AddTransient<IVehicleServices, VehicleServices>();
             services.AddTransient<IJobCardService, JobCardService>();
+            services.AddTransient<IInventoryService,InventoryService>();
 
 
             services.AddAuthorization(x =>

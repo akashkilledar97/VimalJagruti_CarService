@@ -14,6 +14,7 @@ namespace VimalJagruti.Domain.Entity
 
         [ForeignKey("ProductCategory")]
         public int CategoryId_FK { get; set; }
+        public bool IsActive { get; set; }
 
         [JsonIgnore]
         public ProductCategory ProductCategory { get; set; }
