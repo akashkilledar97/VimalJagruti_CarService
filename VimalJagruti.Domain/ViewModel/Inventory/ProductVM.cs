@@ -18,4 +18,9 @@ namespace VimalJagruti.Domain.ViewModel.Inventory
         public string CategoryName { get; set; }
 
     }
+    public class ChangeProductCategory
+    {
+        public int ProductId { get; set; }
+        public int CategoryId { get; set; }
+    }
 }

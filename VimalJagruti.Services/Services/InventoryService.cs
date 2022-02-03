@@ -40,8 +40,6 @@ namespace VimalJagruti.Services.Services
 
             _ = await _unitOfWork.productRepo.Add(product);
 
-            await _unitOfWork.SaveChangesAsync();
-
             return new ResponseViewModel<bool>
             {
                 Data = true,
@@ -78,7 +76,6 @@ namespace VimalJagruti.Services.Services
                 CategoryName = categoryVM.CategoryName
             };
             _ = _unitOfWork.productCategoryRepo.Add(category);
-            await _unitOfWork.SaveChangesAsync();
 
             return new ResponseViewModel<bool>
             {
@@ -96,7 +93,7 @@ namespace VimalJagruti.Services.Services
 
         public async Task<ResponseViewModel<List<ProductDetailsVM>>> GetAllProducts()
         {
-            var obj = _spRepo.GetAll<ProductDetailsVM> ("GetAllProductDetails", null , System.Data.CommandType.StoredProcedure);
+            var obj = _spRepo.GetAll<ProductDetailsVM> ("GetAllProductDetails", null);
 
             if (obj == null)
                 return new ResponseViewModel<List<ProductDetailsVM>>
@@ -118,7 +115,7 @@ namespace VimalJagruti.Services.Services
             DynamicParameters param = new DynamicParameters();
             param.Add("Id", productId);
 
-            var obj = _spRepo.Get<ProductDetailsVM>("GetProductDetails",param,System.Data.CommandType.StoredProcedure);
+            var obj = _spRepo.Get<ProductDetailsVM>("GetProductDetails",param);
 
             if (obj == null)
                 return new ResponseViewModel<ProductDetailsVM>
