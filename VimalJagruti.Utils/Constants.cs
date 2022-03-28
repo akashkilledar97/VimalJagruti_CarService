@@ -22,5 +22,7 @@ namespace VimalJagruti.Utils
         public const string VehicleAlreadyRegistered = "Vehicle is registered.";
         public const string DataIncorrect = "Please fill all required details";
         public const string JobCardCreated = "Job card created.";
+        public const string DataSaved = "Data saved successfully.";
+        public const string DataFound = "Data found.";
     }
 }

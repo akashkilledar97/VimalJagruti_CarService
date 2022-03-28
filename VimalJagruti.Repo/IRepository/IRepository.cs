@@ -28,7 +28,7 @@ namespace VimalJagruti.Repo.IRepository
             int? PageNo = null,
             int? PageSize = null);
 
-        Task<T> GetById(long id);
+        Task<T> GetById(int id);
         Task<T> GetAsync(
             Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
@@ -39,7 +39,7 @@ namespace VimalJagruti.Repo.IRepository
         Task<bool> Update(T entity);
 
         Task<bool> Delete(T entity);
-        Task<bool> Delete(long id);
+        Task<bool> Delete(int id);
         Task<bool> Detach(T entity);
     }
 }
